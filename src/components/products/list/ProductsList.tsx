@@ -5,6 +5,7 @@ import productsService from '../../../services/products'
 import Product from '../../../models/Product'
 import ProductCard from '../card/ProductCard'
 import Spinner from '../../common/spinner/Spinner'
+import { NavLink } from 'react-router-dom'
 
 function ProductsList(): JSX.Element {
 
@@ -46,6 +47,7 @@ function ProductsList(): JSX.Element {
     return (
         <div className='ProductsList'>
             <h2>Northwind Products</h2>
+            <p><NavLink to="/products/add">add product</NavLink></p>
             {/* <table>
                 <thead>
                     <tr>

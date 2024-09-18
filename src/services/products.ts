@@ -1,6 +1,7 @@
 import axios from "axios";
 import Product from "../models/Product";
 import config from "../util/config";
+import NewProduct from "../models/NewProduct";
 
 class Products {
     public async getAll(): Promise<Product[]> {
@@ -24,6 +25,13 @@ class Products {
     public async delete(id: number): Promise<boolean> {
 
         const response = await axios.delete(`${process.env.REACT_APP_REST_SERVER}/${config.productsPath}/${id}`);
+        const product = response.data
+        return product
+
+    }
+
+    public async add(newProduct: NewProduct): Promise<Product> {
+        const response = await axios.post<Product>(`${process.env.REACT_APP_REST_SERVER}/${config.productsPath}`, newProduct);
         const product = response.data
         return product
 
