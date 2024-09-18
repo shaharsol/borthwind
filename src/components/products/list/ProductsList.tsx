@@ -6,12 +6,17 @@ import Product from '../../../models/Product'
 import ProductCard from '../card/ProductCard'
 import Spinner from '../../common/spinner/Spinner'
 import { NavLink } from 'react-router-dom'
+import { useAppSelector, useAppDispatch } from '../../../redux/hooks'
+import { init, remove } from '../../../redux/productsSlice'
+
 
 function ProductsList(): JSX.Element {
 
     useTitle('Products')
 
-    const [ products, setProducts ] = useState<Product[]>([])
+    // const [ products, setProducts ] = useState<Product[]>([])
+    const products = useAppSelector((state) => state.products.products)
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         // how to overcome the fact that we can't use async functions inside useEffect
@@ -19,7 +24,8 @@ function ProductsList(): JSX.Element {
         (async () => {
             try {
                 const productsFromServer = await productsService.getAll()
-                setProducts(productsFromServer)
+                // setProducts(productsFromServer)
+                dispatch(init(productsFromServer))
             } catch (e) {
                 console.error(e)
             }
@@ -35,9 +41,11 @@ function ProductsList(): JSX.Element {
     async function deleteProduct(id: number) {
         try {
             await productsService.delete(id)
-            const index = products.findIndex(p => p.id === id)
-            products.splice(index, 1)
-            setProducts([...products])
+            // const index = products.findIndex(p => p.id === id)
+            // products.splice(index, 1)
+            // setProducts([...products])
+            dispatch(remove({id}))
+
 
         } catch (e) {
             alert(e)
