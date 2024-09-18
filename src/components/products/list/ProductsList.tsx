@@ -31,6 +31,18 @@ function ProductsList(): JSX.Element {
 
     }, [])
 
+    async function deleteProduct(id: number) {
+        try {
+            await productsService.delete(id)
+            const index = products.findIndex(p => p.id === id)
+            products.splice(index, 1)
+            setProducts([...products])
+
+        } catch (e) {
+            alert(e)
+        }
+    }
+
     return (
         <div className='ProductsList'>
             <h2>Northwind Products</h2>
@@ -54,7 +66,7 @@ function ProductsList(): JSX.Element {
             </table> */}
             {products.length === 0 && <Spinner />}
 
-            {products.length > 0 && products.map(p => <ProductCard key={p.id} product={p}/>)}
+            {products.length > 0 && products.map(p => <ProductCard key={p.id} product={p} deleteMe={deleteProduct}/>)}
         </div>
     )
 }

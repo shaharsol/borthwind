@@ -3,6 +3,7 @@ import Home from "../../home/home/Home"
 import About from "../../about/about/About"
 import Page404 from "../page404/Page404"
 import ProductsList from "../../products/list/ProductsList"
+import ProductDetails from "../../products/details/ProductDetails"
 
 function Routing(): JSX.Element {
     return (
@@ -12,6 +13,7 @@ function Routing(): JSX.Element {
             <Route path="/" element={<Navigate to="/home" />}/>
             <Route path="/about" element={<About />}/>
             <Route path="/products" element={<ProductsList />}/>
+            <Route path="/products/:id" element={<ProductDetails />}/>
             <Route path="*" element={<Page404 />}/>
         </Routes>
     )

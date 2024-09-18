@@ -12,6 +12,22 @@ class Products {
         return products
 
     }
+
+    public async getById(id: number): Promise<Product> {
+
+        const response = await axios<Product>(`${process.env.REACT_APP_REST_SERVER}/${config.productsPath}/${id}`);
+        const product = response.data
+        return product
+
+    }
+
+    public async delete(id: number): Promise<boolean> {
+
+        const response = await axios.delete(`${process.env.REACT_APP_REST_SERVER}/${config.productsPath}/${id}`);
+        const product = response.data
+        return product
+
+    }
 }
 
 const products = new Products();
