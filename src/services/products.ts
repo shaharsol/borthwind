@@ -36,6 +36,14 @@ class Products {
         return product
 
     }
+
+    public async update(id: number, newProduct: NewProduct): Promise<Product> {
+        const response = await axios.put<Product>(`${process.env.REACT_APP_REST_SERVER}/${config.productsPath}/${id}`, newProduct);
+        const product = response.data
+        return product
+
+    }
+
 }
 
 const products = new Products();

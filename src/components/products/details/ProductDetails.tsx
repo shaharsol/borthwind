@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import productsService from '../../../services/products'
 import Product from '../../../models/Product'
 import Spinner from '../../common/spinner/Spinner'
+import { NavLink } from 'react-router-dom'
 
 function ProductDetails(): JSX.Element {
 
@@ -41,6 +42,8 @@ function ProductDetails(): JSX.Element {
             <h3>{product?.name}</h3>
             <br/>
             <button onClick={deleteMe}>delete</button>
+            <br/>
+            <NavLink to={`/products/edit/${product?.id}`}>edit</NavLink>
         </div>
     )
 }
