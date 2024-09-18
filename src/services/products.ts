@@ -31,14 +31,24 @@ class Products {
     }
 
     public async add(newProduct: NewProduct): Promise<Product> {
-        const response = await axios.post<Product>(`${process.env.REACT_APP_REST_SERVER}/${config.productsPath}`, newProduct);
+        const axiosConfig = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+        const response = await axios.post<Product>(`${process.env.REACT_APP_REST_SERVER}/${config.productsPath}`, newProduct, axiosConfig);
         const product = response.data
         return product
 
     }
 
     public async update(id: number, newProduct: NewProduct): Promise<Product> {
-        const response = await axios.put<Product>(`${process.env.REACT_APP_REST_SERVER}/${config.productsPath}/${id}`, newProduct);
+        const axiosConfig = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }        
+        const response = await axios.put<Product>(`${process.env.REACT_APP_REST_SERVER}/${config.productsPath}/${id}`, newProduct, axiosConfig);
         const product = response.data
         return product
 

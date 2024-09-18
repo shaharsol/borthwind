@@ -11,6 +11,8 @@ function AddProduct(): JSX.Element {
     const navigate = useNavigate()
 
     async function submit(newProduct: NewProduct) {
+        newProduct.image = (newProduct.image as unknown as FileList)[0]
+        console.log(newProduct)
         const product = await productsService.add(newProduct)
         alert(`added product with id ${product.id}`)
         navigate('/products')
@@ -27,6 +29,9 @@ function AddProduct(): JSX.Element {
                 <br/>
                 <label>stock</label>
                 <input type="number" {...register('stock')}/>
+                <br/>
+                <label>image</label>
+                <input type="file" {...register('image')}/>
                 <br/>
                 <button>submit</button>
             </form>

@@ -3,8 +3,7 @@ import './EditProduct.css'
 import NewProduct from '../../../models/NewProduct'
 import productsService from '../../../services/products'
 import { useNavigate, useParams } from 'react-router-dom'
-import { useEffect } from 'react'
-import { prettyDOM } from '@testing-library/react'
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 
 function EditProduct(): JSX.Element {
 
@@ -16,12 +15,14 @@ function EditProduct(): JSX.Element {
 
     async function submit(newProduct: NewProduct) {
         if (id) {
+            newProduct.image = (newProduct.image as unknown as FileList)[0]
             const product = await productsService.update(+id, newProduct)
             alert(`added product with id ${product.id}`)
             navigate('/products')
         }
     }
 
+    const [imageSource, setImageSource] = useState<string>('')
     useEffect(() => {
         (async () => {
             if (id) {
@@ -29,10 +30,17 @@ function EditProduct(): JSX.Element {
                 setValue('name', product.name)
                 setValue('price', product.price)
                 setValue('stock', product.stock)
+                setImageSource(product.imageUrl)
             }
         })()
     }, [])
 
+    function previewImage(event: FormEvent<HTMLInputElement>) {
+        const file = event.currentTarget.files && event.currentTarget.files[0]
+        if (file) {
+            setImageSource(URL.createObjectURL(file))
+        }
+    }
 
     return (
         <div className='EditProduct'>
@@ -45,6 +53,10 @@ function EditProduct(): JSX.Element {
                 <br/>
                 <label>stock</label>
                 <input type="number" {...register('stock')}/>
+                <br/>
+                <label>image</label>
+                <img src={imageSource} />
+                <input type="file" {...register('image')} onChange={previewImage}/>
                 <br/>
                 <button>submit</button>
             </form>
