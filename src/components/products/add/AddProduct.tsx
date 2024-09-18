@@ -3,6 +3,8 @@ import './AddProduct.css'
 import NewProduct from '../../../models/NewProduct'
 import productsService from '../../../services/products'
 import { useNavigate } from 'react-router-dom'
+import { useAppSelector, useAppDispatch } from '../../../redux/hooks'
+import { add } from '../../../redux/productsSlice'
 
 function AddProduct(): JSX.Element {
 
@@ -10,12 +12,15 @@ function AddProduct(): JSX.Element {
 
     const navigate = useNavigate()
 
+    const dispatch = useAppDispatch()
+
     async function submit(newProduct: NewProduct) {
         newProduct.image = (newProduct.image as unknown as FileList)[0]
         console.log(newProduct)
         const product = await productsService.add(newProduct)
+        dispatch(add(product))
         alert(`added product with id ${product.id}`)
-        navigate('/products')
+        // navigate('/products')
     }
 
     return (

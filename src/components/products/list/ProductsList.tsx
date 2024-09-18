@@ -7,7 +7,7 @@ import ProductCard from '../card/ProductCard'
 import Spinner from '../../common/spinner/Spinner'
 import { NavLink } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../../redux/hooks'
-import { init } from '../../../redux/productsSlice'
+import { init, remove } from '../../../redux/productsSlice'
 
 
 function ProductsList(): JSX.Element {
@@ -41,10 +41,10 @@ function ProductsList(): JSX.Element {
     async function deleteProduct(id: number) {
         try {
             await productsService.delete(id)
-            const index = products.findIndex(p => p.id === id)
-            products.splice(index, 1)
+            // const index = products.findIndex(p => p.id === id)
+            // products.splice(index, 1)
             // setProducts([...products])
-            dispatch(init(products))
+            dispatch(remove({id}))
 
 
         } catch (e) {

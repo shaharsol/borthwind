@@ -4,6 +4,8 @@ import config from "../util/config";
 import NewProduct from "../models/NewProduct";
 
 class Products {
+    
+
     public async getAll(): Promise<Product[]> {
 
         // REACT_APP_REST_SERVER = http://localhost:3030

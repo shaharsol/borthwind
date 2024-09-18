@@ -23,7 +23,7 @@ export const productsSlice = createSlice({
             const index = state.products.findIndex(p => p.id === action.payload.id)
             state.products[index] = action.payload
         },
-        remove: (state, action: PayloadAction<Product>) => {
+        remove: (state, action: PayloadAction<{ id: number}>) => {
             const index = state.products.findIndex(p => p.id === action.payload.id)
             state.products.splice(index, 1)
         }
