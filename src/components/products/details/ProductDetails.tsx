@@ -36,7 +36,7 @@ function ProductDetails(): JSX.Element {
         }
     }
 
-    return (
+    if (product) return (
 
         <div className="ProductDetails">
             <h3>{product?.name}</h3>
@@ -44,6 +44,12 @@ function ProductDetails(): JSX.Element {
             <button onClick={deleteMe}>delete</button>
             <br/>
             <NavLink to={`/products/edit/${product?.id}`}>edit</NavLink>
+        </div>
+    )
+
+    return (
+        <div className="ProductDetails">
+            <Spinner />
         </div>
     )
 }

@@ -4,6 +4,8 @@ import NewProduct from '../../../models/NewProduct'
 import productsService from '../../../services/products'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
+import Product from '../../../models/Product'
+import Spinner from '../../common/spinner/Spinner'
 
 function EditProduct(): JSX.Element {
 
@@ -23,6 +25,7 @@ function EditProduct(): JSX.Element {
     }
 
     const [imageSource, setImageSource] = useState<string>('')
+    const [product, setProduct] = useState<Product>()
     useEffect(() => {
         (async () => {
             if (id) {
@@ -31,6 +34,7 @@ function EditProduct(): JSX.Element {
                 setValue('price', product.price)
                 setValue('stock', product.stock)
                 setImageSource(product.imageUrl)
+                setProduct(product)
             }
         })()
     }, [])
@@ -42,7 +46,7 @@ function EditProduct(): JSX.Element {
         }
     }
 
-    return (
+    if (product) return (
         <div className='EditProduct'>
             <form onSubmit={handleSubmit(submit)}>
                 <label>name</label>
@@ -60,6 +64,11 @@ function EditProduct(): JSX.Element {
                 <br/>
                 <button>submit</button>
             </form>
+        </div>
+    )
+    return (
+        <div className='EditProduct'>
+            <Spinner />
         </div>
     )
 }
