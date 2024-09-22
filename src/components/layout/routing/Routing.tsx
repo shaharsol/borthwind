@@ -6,6 +6,7 @@ import ProductsList from "../../products/list/ProductsList"
 import ProductDetails from "../../products/details/ProductDetails"
 import AddProduct from "../../products/add/AddProduct"
 import EditProduct from "../../products/edit/EditProduct"
+import Login from "../../auth/login/Login"
 
 function Routing(): JSX.Element {
     return (
@@ -18,6 +19,7 @@ function Routing(): JSX.Element {
             <Route path="/products/edit/:id" element={<EditProduct />}/>
             <Route path="/products/add" element={<AddProduct />}/>
             <Route path="/products/:id" element={<ProductDetails />}/>
+            <Route path="/login" element={<Login />}/>
             <Route path="*" element={<Page404 />}/>
         </Routes>
     )

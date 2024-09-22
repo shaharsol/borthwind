@@ -1,3 +1,4 @@
+import Auth from '../../auth/auth/Auth';
 import Home from '../../home/home/Home';
 import AddProduct from '../../products/add/AddProduct';
 import Footer from '../footer/Footer';
@@ -15,6 +16,7 @@ function Layout(): JSX.Element {
             </header>
 
             <nav>
+                <Auth />
                 <Menu />
             </nav>
 
