@@ -10,6 +10,7 @@ function Menu(): JSX.Element {
             <a href="#">employees</a>
             {/* don't use!!! <a href="/about">about us</a> */}
             <NavLink to="/about">about us</NavLink>
+            <NavLink to="/products/search">search</NavLink>
         </div>
     )
 }
