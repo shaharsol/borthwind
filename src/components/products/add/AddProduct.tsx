@@ -8,7 +8,7 @@ import { add } from '../../../redux/productsSlice'
 
 function AddProduct(): JSX.Element {
 
-    const { register, handleSubmit } = useForm<NewProduct>()
+    const { register, handleSubmit, formState } = useForm<NewProduct>()
 
     const navigate = useNavigate()
 
@@ -27,10 +27,24 @@ function AddProduct(): JSX.Element {
         <div className='AddProduct'>
             <form onSubmit={handleSubmit(submit)}>
                 <label>name</label>
-                <input type="text" {...register('name')}/>
+                <input type="text" {...register('name', {
+                    required: {
+                        value: true,
+                        message: 'must provide name'
+                    }
+                })}/>
+                <br/>
+                <span className="error">{formState.errors.name?.message}</span>
                 <br/>
                 <label>price</label>
-                <input type="number" {...register('price')}/>
+                <input type="number" {...register('price', {
+                    min: {
+                        value: 0,
+                        message: 'must be positive'
+                    }
+                })}/>
+                <br/>
+                <span className="error">{formState.errors.price?.message}</span>
                 <br/>
                 <label>stock</label>
                 <input type="number" {...register('stock')}/>

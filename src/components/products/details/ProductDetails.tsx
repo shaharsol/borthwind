@@ -36,22 +36,26 @@ function ProductDetails(): JSX.Element {
         }
     }
 
-    if (product) return (
-
-        <div className="ProductDetails">
-            <h3>{product?.name}</h3>
-            <br/>
-            <button onClick={deleteMe}>delete</button>
-            <br/>
-            <NavLink to={`/products/edit/${product?.id}`}>edit</NavLink>
-        </div>
-    )
-
     return (
         <div className="ProductDetails">
-            <Spinner />
+            { !!product && <div>
+                <h3>{product?.name}</h3>
+                <br/>
+                <button onClick={deleteMe}>delete</button>
+                <br/>
+                <NavLink to={`/products/edit/${product?.id}`}>edit</NavLink>
+            </div>}
+    
+            { !product && <Spinner />}
         </div>
     )
+
+    // return (
+    //     { !!product && <Spinner />}
+    //     <div className="ProductDetails">
+    //         <Spinner />
+    //     </div>
+    // )
 }
 
 export default ProductDetails
