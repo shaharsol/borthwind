@@ -1,46 +1,26 @@
-import { useEffect, useRef, useState } from "react"
-import Product from "../../../models/Product"
-import productsService from '../../../services/products'
+import { memo } from "react"
+import { useAppSelector } from "../../../redux/hooks"
+import ProductCard from '../card-slow/ProductCardSlow'
 
-interface DeferListProps {
+interface ListProps {
     query: string
 }
-function DeferList(props: DeferListProps): JSX.Element {
+function List(props: ListProps): JSX.Element {
 
-    const products = useRef<Product[]>([])
-    const [filteredProducts, setFilteredProducts ] = useState<Product[]>([])
-    useEffect(() => {
-        // how to overcome the fact that we can't use async functions inside useEffect
-        // 1st solution, use an IIFE (immediately invoked function expression)
-        (async () => {
-            try {
-                const productsFromServer = await productsService.getAll()
-                products.current = productsFromServer
-                // setProducts(productsFromServer)
-                // dispatch(init(productsFromServer))
-            } catch (e) {
-                console.error(e)
-            }
-        })()
-
-        // 2nd solution, use thenification
-        // productsService.getAll()
-        //     .then((products) => {console.log(products)})
-        //     .catch()
-
-    }, [])
-
+    console.log(`list got: ${props.query}`)
+    const products = useAppSelector((state) => state.products.products)
+    const filteredProducts = products.filter(p => p.name.toLowerCase().includes(props.query.toLowerCase()))
     
-
-    const filtered = products.current.filter(p => p.name.toLowerCase().includes(props.query));
-    console.log(filtered)
-    setFilteredProducts(filtered)
-
+    async function deleteProduct(id: number) {
+    }
+    
     return (
-        <div className="DeferList">
-            {filteredProducts.map(p => <div key={p.id}>{p.name}</div>)}
+        <div>
+            {filteredProducts.map(p => <ProductCard key={p.id} product={p} deleteMe={deleteProduct} query={props.query}/>)}
+
         </div>
     )
 }
 
-export default DeferList
+export default memo(List)
+// export default List
