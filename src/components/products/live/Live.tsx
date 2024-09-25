@@ -7,7 +7,7 @@ import ProductCard from '../card/ProductCard'
 import Spinner from '../../common/spinner/Spinner'
 import { NavLink } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../../redux/hooks'
-import { init, remove, add } from '../../../redux/productsSlice'
+import { init, remove, add, addOnTop } from '../../../redux/productsSlice'
 import { AuthContext } from '../../auth/auth/Auth'
 import jwtUsername from '../../../util/jwtUsername'
 import { io } from 'socket.io-client'
@@ -66,7 +66,7 @@ function Live(): JSX.Element {
 
         socket.on('new product', (product) => {
             console.log(`received new product from io server ${product}`)
-            dispatch(add(product))
+            dispatch(addOnTop(product))
         })
 
         return () => {
