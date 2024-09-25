@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import useTitle from '../../../util/useTitle'
 import './ProductsList.css'
 import productsService from '../../../services/products'
@@ -8,7 +8,8 @@ import Spinner from '../../common/spinner/Spinner'
 import { NavLink } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from '../../../redux/hooks'
 import { init, remove } from '../../../redux/productsSlice'
-
+import { AuthContext } from '../../auth/auth/Auth'
+import jwtUsername from '../../../util/jwtUsername'
 
 function ProductsList(): JSX.Element {
 
@@ -17,6 +18,12 @@ function ProductsList(): JSX.Element {
     // const [ products, setProducts ] = useState<Product[]>([])
     const products = useAppSelector((state) => state.products.products)
     const dispatch = useAppDispatch()
+
+    const { jwt } = useContext(AuthContext)
+
+    const username: string = useMemo(() => {
+        return jwtUsername(jwt)
+    }, [jwt])
 
     useEffect(() => {
         // how to overcome the fact that we can't use async functions inside useEffect
@@ -55,6 +62,7 @@ function ProductsList(): JSX.Element {
     return (
         <div className='ProductsList'>
             <h2>Northwind Products</h2>
+            <h4>your username is {username}</h4>
             <p><NavLink to="/products/add">add product</NavLink></p>
             {products.length === 0 && <Spinner />}
 

@@ -1,32 +1,20 @@
-import './Auth.css'
-import { NavLink } from 'react-router-dom'
-import { useMemo, useState } from 'react'
-import { jwtDecode } from 'jwt-decode'
-import User from '../../../models/User'
-import { useAppSelector, useAppDispatch } from '../../../redux/hooks'
-import { logout as logoutAction } from '../../../redux/authSlice'
+import { createContext, PropsWithChildren, useState } from "react"
 
-export default function Auth(): JSX.Element {
-    const dispatch = useAppDispatch()
+export const AuthContext = createContext({
+    jwt: '',
+    setJwt: (jwt: string) => {}
+});
 
-    const jwt = useAppSelector((state) => state.auth.jwt)
-    const name = useMemo(() => {
-        if (!jwt) return ''
-        const payload = jwtDecode(jwt) as {user: User}
-        return `${payload.user.firstName} ${payload.user.lastName}`
-    }, [jwt])
+function Auth(props: PropsWithChildren): JSX.Element {
 
-    function logout() {
-        dispatch(logoutAction())
-    }
+    const [jwt, setJwt] = useState<string>('')
+    const value = { jwt, setJwt }
 
     return (
-        <div className='Auth'>
-            
-            {jwt && <p>hello {name} | <button onClick={logout}>logout</button></p> }
-
-            {!jwt && <NavLink to="/login">login</NavLink>}
-            
-        </div>
+        <AuthContext.Provider value={value}>
+            {props.children}
+        </AuthContext.Provider>   
     )
 }
+
+export default Auth
