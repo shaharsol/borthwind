@@ -9,6 +9,7 @@ import EditProduct from "../../products/edit/EditProduct"
 import Login from "../../auth/login/Login"
 import Search from "../../products/search/Search"
 import Defer from "../../products/defer/Defer"
+import Live from "../../products/live/Live"
 
 function Routing(): JSX.Element {
     return (
@@ -21,6 +22,7 @@ function Routing(): JSX.Element {
             <Route path="/products/edit/:id" element={<EditProduct />}/>
             <Route path="/products/search" element={<Search />}/>
             <Route path="/products/defer" element={<Defer />}/>
+            <Route path="/products/live" element={<Live />}/>
             <Route path="/products/add" element={<AddProduct />}/>
             <Route path="/products/:id" element={<ProductDetails />}/>
             <Route path="/login" element={<Login />}/>
