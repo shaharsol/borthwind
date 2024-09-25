@@ -1,4 +1,4 @@
-.ProductCard {
+.ProductCardSlow {
     display: inline-flex;
     width: 120px;
     border: 1px solid;
@@ -10,11 +10,11 @@
     box-shadow: 5px 5px 5px;
 }
 
-.ProductCard > div:last-child {
+.ProductCardSlow > div:last-child {
     margin-left: auto;
 }
 
-.ProductCard img {
+.ProductCardSlow img {
     width: 50px;
     vertical-align: middle;
 }

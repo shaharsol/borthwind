@@ -56,24 +56,6 @@ function ProductsList(): JSX.Element {
         <div className='ProductsList'>
             <h2>Northwind Products</h2>
             <p><NavLink to="/products/add">add product</NavLink></p>
-            {/* <table>
-                <thead>
-                    <tr>
-                        <th>name</th>
-                        <th>price</th>
-                        <th>stock</th>
-                        <th>imageUrl</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {products.map(product => <tr key={product.id}>
-                        <td>{product.name}</td>
-                        <td>{product.price}</td>
-                        <td>{product.stock}</td>
-                        <td><img src={product.imageUrl}/></td>
-                    </tr>)}
-                </tbody>
-            </table> */}
             {products.length === 0 && <Spinner />}
 
             {products.length > 0 && products.map(p => <ProductCard key={p.id} product={p} deleteMe={deleteProduct}/>)}

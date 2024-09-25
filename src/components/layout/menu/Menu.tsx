@@ -11,6 +11,7 @@ function Menu(): JSX.Element {
             {/* don't use!!! <a href="/about">about us</a> */}
             <NavLink to="/about">about us</NavLink>
             <NavLink to="/products/search">search</NavLink>
+            <NavLink to="/products/defer">defer</NavLink>
         </div>
     )
 }
