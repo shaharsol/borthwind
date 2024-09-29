@@ -16,6 +16,7 @@ function Search(): JSX.Element {
     useTitle('Search')
 
     const [ filteredProducts, setFilteredProducts ] = useState<Product[]>([])
+    const [ filteredToNothing, setFilteredTNothing] = useState<boolean>(false)
 
     const products = useRef<Product[]>([])
 
@@ -24,6 +25,7 @@ function Search(): JSX.Element {
             try {
                 const productsFromServer = await productsService.getAll()
                 products.current = productsFromServer
+                setFilteredProducts(productsFromServer)
             } catch (e) {
                 console.error(e)
             }
@@ -35,18 +37,27 @@ function Search(): JSX.Element {
     }
 
     function filter(event: FormEvent<HTMLInputElement>) {
+
         console.log(event.currentTarget.value)
         const filtered = products.current.filter(p => p.name.toLowerCase().includes(event.currentTarget.value));
         console.log(filtered)
         setFilteredProducts(filtered)
+        if(filtered.length === 0) return setFilteredTNothing(true);
+        return setFilteredTNothing(false);
     }
 
     return (
         <div className='Search'>
-            <h2>Northwind Products Search</h2>
-            <input type="text" onChange={filter}/>
-            
-            {filteredProducts.map(p => <ProductCard key={p.id} product={p} deleteMe={deleteProduct} query={'test'} />)}
+
+            {(filteredProducts.length > 0 || filteredToNothing) && <div>
+                <h2>Northwind Products Search</h2>
+                <input type="text" onChange={filter}/>
+                <br />
+
+                {filteredProducts.map(p => <ProductCard key={p.id} product={p} deleteMe={deleteProduct} query={'test'} />)}
+            </div>}
+
+            {filteredProducts.length === 0 && !filteredToNothing && <Spinner />}
         </div>
     )
 }

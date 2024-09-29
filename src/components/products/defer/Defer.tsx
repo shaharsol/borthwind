@@ -25,7 +25,7 @@ function Defer(): JSX.Element {
     
     return (
         <div className='Defer'>
-            <h2>Northwind Products Search</h2>
+            <h2>Northwind Products Defer</h2>
             <input type="text" value={query} onChange={queryChanged}/>
             
             <List query={deferredQuery}/>

@@ -9,6 +9,7 @@ interface ProductCardSlowProps {
 }
 
 function ProductCardSlow(props: ProductCardSlowProps): JSX.Element {
+// function ProductCardSlow({product, deleteMe, query}:{product: Product, deleteMe: Function, query: string}): JSX.Element {
 
     function deleteMyself() {
         props.deleteMe(+props.product.id)
@@ -16,7 +17,7 @@ function ProductCardSlow(props: ProductCardSlowProps): JSX.Element {
 
     let startTime = performance.now();
     // console.log('start wait')
-    while (performance.now() - startTime < 10) {
+    while (performance.now() - startTime < 100) {
         // Do nothing for 1 ms per item to emulate extremely slow code
     }
     // console.log('stop wait')
