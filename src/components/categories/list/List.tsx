@@ -8,7 +8,6 @@ export default function CategoriesList(): JSX.Element {
     useEffect(() => {
         (async () => {
             try {
-                console.log(categoriesService.axiosInstance)
                 const categories = await categoriesService.getAll()
                 console.log(categories)
             } catch (e) {
