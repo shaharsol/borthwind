@@ -15,6 +15,7 @@ function Search(): JSX.Element {
 
     useTitle('Search')
 
+    const [ pfs, setPfs] = useState<Product[]>([])
     const [ filteredProducts, setFilteredProducts ] = useState<Product[]>([])
     const [ filteredToNothing, setFilteredTNothing] = useState<boolean>(false)
 
@@ -24,8 +25,9 @@ function Search(): JSX.Element {
         (async () => {
             try {
                 const productsFromServer = await productsService.getAll()
-                products.current = productsFromServer
+                // products.current = productsFromServer
                 setFilteredProducts(productsFromServer)
+                setPfs(productsFromServer)
             } catch (e) {
                 console.error(e)
             }
@@ -39,7 +41,9 @@ function Search(): JSX.Element {
     function filter(event: FormEvent<HTMLInputElement>) {
 
         console.log(event.currentTarget.value)
-        const filtered = products.current.filter(p => p.name.toLowerCase().includes(event.currentTarget.value));
+        console.log(pfs.length)
+        // const filtered = products.current.filter(p => p.name.toLowerCase().includes(event.currentTarget.value));
+        const filtered = pfs.filter(p => p.name.toLowerCase().includes(event.currentTarget.value));
         console.log(filtered)
         setFilteredProducts(filtered)
         if(filtered.length === 0) return setFilteredTNothing(true);
