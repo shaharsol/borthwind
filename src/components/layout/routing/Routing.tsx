@@ -11,6 +11,7 @@ import Search from "../../products/search/Search"
 import Defer from "../../products/defer/Defer"
 import Live from "../../products/live/Live"
 import ProductsListUseCallback from "../../products/use-callback/ProductsListUseCallback"
+import CategoriesList from "../../categories/list/List"
 
 function Routing(): JSX.Element {
     return (
@@ -19,6 +20,7 @@ function Routing(): JSX.Element {
             {/* this is bad for SEO (search engine optimizatin), do not put same component on different routes <Route path="/" element={<Home />}/> */}
             <Route path="/" element={<Navigate to="/home" />}/>
             <Route path="/about" element={<About />}/>
+            <Route path="/categories" element={<CategoriesList />}/>
             <Route path="/products" element={<ProductsList />}/>
             <Route path="/products/edit/:id" element={<EditProduct />}/>
             <Route path="/products/search" element={<Search />}/>
